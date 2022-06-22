@@ -29,21 +29,33 @@ function App() {
     socket.emit("chat message", JSON.stringify({ chatMessage }));
   }
 
-
+  
   return (
     
       <div className="background">
         <div></div>
           <div className="textArea">
+            
+  {function MessageList() {
+    const messages = chatMessage;
+    const listOfMessages = messages.map((message) =>
+      <li>{message}</li>
+      );
+  return (
+    <ul>{listOfMessages}</ul>
+     );
+}}
+            
+            
 
-          <form className="form" onSubmit={handleMessage} action="">
+          <form className="form" onSubmit={handleMessage}>
       <input 
       className="inputField"
        autoComplete="off"
        value={chatMessage}
        onChange={(e) => setChatMessage(e.target.value)}
         />
-      <button type="submit" className="button">Send</button>
+      <button  type="submit" className="button">Send</button>
     </form>
 
           </div>
