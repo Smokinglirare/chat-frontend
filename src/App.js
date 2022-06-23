@@ -8,7 +8,7 @@ function App() {
 
   const [chatMessage, setChatMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
-
+  const [messages, setMessages] = useState([]);
   
 
   useEffect(() => {
@@ -23,20 +23,30 @@ function App() {
       console.log(data);
 
     })
+    socket.on("message received", (data) => {
+      setMessages( (prevMessages) => {
+        return [...prevMessages, data.chatMessage]
+        
+      });
+
+    })
   
   }, []);
 
  
   
-  const handleMessage = () => {
+  const handleMessage = (e) => {
+    e.preventDefault();
     socket.emit("chat message", { chatMessage });
+    setMessages( (prevMessages) => {
+      return [...prevMessages, chatMessage]
+      
+    });
   }
 
-  useEffect(() => {
-    socket.on("message received", (data) => {
-      setMessageReceived(data.chatMessage);
-    })
-  }, [socket])
+
+
+
   
 
   return (
@@ -45,16 +55,13 @@ function App() {
         <div></div>
           <div className="textArea">
             <h1>Message:</h1>
-            {messageReceived}
-  {function MessageList() {
-    const messages = chatMessage;
-    const listOfMessages = messages.map((message) =>
-      <li>{message}</li>
-      );
-  return (
-    <ul>{listOfMessages}</ul>
-     );
-}}
+            {messages.map((chatMessage) => {
+              return <p>{chatMessage}</p>
+
+              
+            })}
+
+
             
             
 
