@@ -92,8 +92,8 @@ function App() {
   <input
             className="upper-inputField"
             autoComplete="off"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
 
           />
 
