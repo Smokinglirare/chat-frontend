@@ -11,7 +11,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [roomName, setRoomName] = useState("")
   const [username, setUsername] = useState("")
-
+  const [name, setName] = ("")
   
   useEffect(() => {
     socket = io("http://localhost:4000")
@@ -26,6 +26,9 @@ function App() {
       setMessages((prevMessages) => {
         return [...prevMessages, data.chatMessage]
       })
+    })
+    socket.on("socketUsername", (name) => {
+      console.log(name)
     })
   /* const name = prompt("Vad heter du?");
    socket.emit("setUsername", name); */
@@ -64,6 +67,7 @@ function App() {
     e.preventDefault()
     socket.emit("setUsername", username);
    console.log(username);
+   
   }  
 
   return (
@@ -92,10 +96,11 @@ function App() {
   <input
             className="upper-inputField"
             autoComplete="off"
-            value={roomName}
-            onChange={(e) => setRoomName(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
 
           />
+         
 
         </form>
         
@@ -108,7 +113,7 @@ function App() {
       
         <h1 className="h1an">Meddelanden:</h1>
         {messages.map((chatMessage) => {
-          return <p className="chat-text">{username} - {chatMessage}</p>
+          return <p className="chat-text">{name} - {chatMessage}</p>
         })}
 
         <form className="form" onSubmit={handleMessage}>
