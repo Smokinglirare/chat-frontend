@@ -10,7 +10,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [roomName, setRoomName] = useState("")
   const [username, setUsername] = useState("")
-  const [nameRec, setNameRec] = useState("")
+  const [oldMessages, setOldMessages] = useState("")
   
   useEffect(() => {
     socket = io("http://localhost:4000")
@@ -26,12 +26,8 @@ function App() {
         console.log(data.username)
         return [...prevMessages, `${data.username} - ${data.chatMessage}`, ]
       })
-      setNameRec(() => {
-        return[data.username]
-      })
-   
+     })
      
-    })
   
   
     
@@ -49,7 +45,7 @@ function App() {
     e.preventDefault();
     socket.emit("chat message", { chatMessage, roomName, username });
     setMessages((prevMessages) => {
-      return [...prevMessages, chatMessage]
+      return [...prevMessages, chatMessage ]
 
     });
   }}
@@ -69,6 +65,15 @@ function App() {
     e.preventDefault();
     socket.emit("join_room", roomName);
     console.log(`${username} har anslutit till ${roomName}`)
+    socket.on("oldMessages", (room) => {
+      console.log(room.row)
+      const getMessages = room.find(room => room.message === "tjena");
+      console.log(getMessages)
+      setOldMessages((oldMessages) => {
+        return [...oldMessages, room]
+        
+      })
+    })
     
   }}
 
@@ -144,6 +149,7 @@ function App() {
         {messages.map((chatMessage) => {
           return <p className="chat-text">{chatMessage}</p>
         })}
+      
 
 
 
