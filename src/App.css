@@ -5,7 +5,7 @@ body {
 
 .background{
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   height: 80vh;
 
 }
@@ -43,6 +43,7 @@ body {
   bottom: 0; 
   left: 0; 
   right: 0; 
+  margin-top:30px;
   display: flex; 
   height: 3rem; 
   box-sizing: border-box;
@@ -61,7 +62,7 @@ body {
 }
 
 .chat-text{
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   margin-left: 20px;
 }
 

@@ -7,11 +7,10 @@ let socket;
 function App() {
 
   const [chatMessage, setChatMessage] = useState("");
-  const [messageReceived, setMessageReceived] = useState("");
   const [messages, setMessages] = useState([]);
   const [roomName, setRoomName] = useState("")
   const [username, setUsername] = useState("")
-  const [name, setName] = ("")
+  const [nameRec, setNameRec] = useState("")
   
   useEffect(() => {
     socket = io("http://localhost:4000")
@@ -24,51 +23,72 @@ function App() {
     })
     socket.on("message received", (data) => {
       setMessages((prevMessages) => {
-        return [...prevMessages, data.chatMessage]
+        console.log(data.username)
+        return [...prevMessages, `${data.username} - ${data.chatMessage}`, ]
       })
+      setNameRec(() => {
+        return[data.username]
+      })
+   
+     
     })
-    socket.on("socketUsername", (name) => {
-      console.log(name)
-    })
+  
+  
+    
   /* const name = prompt("Vad heter du?");
    socket.emit("setUsername", name); */
    
 
   }, []);
+
   
+
   const handleMessage = (e) => {
     e.preventDefault();
-    socket.emit("chat message", { chatMessage, roomName });
+    if (chatMessage !== ""){
+    e.preventDefault();
+    socket.emit("chat message", { chatMessage, roomName, username });
     setMessages((prevMessages) => {
       return [...prevMessages, chatMessage]
 
     });
-  }
+  }}
 
   const createRoom = (e) => {
     e.preventDefault();
+    if (roomName !== ""){
+    e.preventDefault();
     socket.emit("create_room", roomName)
     console.log(`Rummet ${roomName} skapades`)
-  }
+    
+  }}
 
   const joinRoom = (e) => {
     e.preventDefault();
+    if (roomName !== ""){
+    e.preventDefault();
     socket.emit("join_room", roomName);
-    console.log(`${socket.id} har anslutit till ${roomName}`)
-  }
+    console.log(`${username} har anslutit till ${roomName}`)
+    
+  }}
 
   const deleteRoom = (e) => {
     e.preventDefault();
     socket.emit("delete_room", roomName);
     console.log(`Rummet ${roomName} har tagits bort`)
+    
   }
 
    const createUsername = (e) => {
+    e.preventDefault();
+    if (username !== ""){
     e.preventDefault()
     socket.emit("setUsername", username);
    console.log(username);
    
-  }  
+  }  }
+
+  
 
   return (
 
@@ -94,6 +114,15 @@ function App() {
   <span aria-hidden class="cybr-btn__glitch">Skapa namn</span>
   <span aria-hidden class="cybr-btn__tag">R28</span></button>
   <input
+            placeholder='roomname'
+            className="upper-inputField"
+            autoComplete="off"
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
+
+          />
+            <input
+            placeholder='username'
             className="upper-inputField"
             autoComplete="off"
             value={username}
@@ -113,10 +142,14 @@ function App() {
       
         <h1 className="h1an">Meddelanden:</h1>
         {messages.map((chatMessage) => {
-          return <p className="chat-text">{name} - {chatMessage}</p>
+          return <p className="chat-text">{chatMessage}</p>
         })}
 
-        <form className="form" onSubmit={handleMessage}>
+
+
+      </div>
+     <div>
+     <form className="form" onSubmit={handleMessage}>
           <input
             className="inputField"
             autoComplete="off"
@@ -125,8 +158,7 @@ function App() {
           />
           <button type="submit" className="button">Send</button>
         </form>
-
-      </div>
+     </div>
     </div>
 
   );
