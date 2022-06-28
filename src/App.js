@@ -2,8 +2,8 @@ import './App.css';
 import { io, Socket } from "socket.io-client";
 import { useEffect, useState } from "react";
 
-let socket;
 
+let socket = io("http://localhost:4000")
 function App() {
 
   const [chatMessage, setChatMessage] = useState("");
@@ -13,7 +13,7 @@ function App() {
   const [oldMessages, setOldMessages] = useState("")
   
   useEffect(() => {
-    socket = io("http://localhost:4000")
+    
     socket.on("connect", () => {
       socket.emit("ready");
       console.log(`${socket.id} har anslutit till servern`)
@@ -24,7 +24,7 @@ function App() {
     socket.on("message received", (data) => {
       setMessages((prevMessages) => {
         console.log(data.username)
-        return [...prevMessages, `${data.username} - ${data.chatMessage}`, ]
+        return [...prevMessages, `${data.username} - ${data.chatMessage}` ]
       })
      })
      
