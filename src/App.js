@@ -41,14 +41,15 @@ function App() {
 
   const handleMessage = (e) => {
     e.preventDefault();
-    if (chatMessage !== ""){
+  //  if (chatMessage !== ""){
     e.preventDefault();
     socket.emit("chat message", { chatMessage, roomName, username });
     setMessages((prevMessages) => {
       return [...prevMessages, chatMessage ]
 
     });
-  }}
+  //}
+}
 
   const createRoom = (e) => {
     e.preventDefault();
