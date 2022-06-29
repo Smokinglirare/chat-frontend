@@ -1,6 +1,12 @@
+@font-face {
+  font-family:cuda ;
+  src: local('cuda'), url(./fonts/CUDA.otf)
+}
+
+
 body {
   font-family: 'Cyber', sans-serif;
-  background: linear-gradient(90deg, #f5ed00 70%, #e6de00 70%), #fff700;
+  background: linear-gradient(90deg, rgba(226,218,10,1) 14%, rgba(247,239,4,1) 50%, rgba(213,207,10,1) 83%);
 }
 
 .background{
@@ -13,11 +19,15 @@ body {
 .middle-div{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  width: 95vh;
+  width: 60vh;
+  margin-left: 400px;
 }
 
 .left-mid{
   margin-left: 20px;
+}
+.right-mid{
+  
 }
 
 .upper-form{
@@ -54,11 +64,18 @@ body {
   flex-grow: 1; 
   border-radius: 2rem; 
   margin: 0.25rem;
+  
 }
 
 .textArea{
   height: 5vh;
   
+}
+.input-div{
+  margin-top:40px;
+}
+.overflowa-for-fan-inte{
+  overflow: clip;
 }
 
 .chat-text{
@@ -68,6 +85,32 @@ body {
 
 .h1an{
   margin-left: 20px;
+}
+.rum-title{
+  margin-left:15px;
+  font-family: cuda;
+  padding: 15px;
+}
+.users-title{
+  margin-right:15px;
+  font-family: cuda;
+  padding: 30px;
+}
+.title-h1{
+  text-align: center;
+  padding: 20px;
+  font-family: cuda;
+  font-size: 40px;
+}
+.room-p{
+  padding:0px;
+  margin: 0px;
+  margin-left: 20px;
+}
+.current-room{
+  text-align: center;
+  font-size: 20px;
+  font-family:cuda ;
 }
 
 /* Buttons */
@@ -257,4 +300,67 @@ body .cybr-btn + .cybr-btn {
 
 .cybr-btn:nth-of-type(2) {
   --primary-hue: 260;
+}
+
+
+@media screen and (max-width: 1300px) {
+  .middle-div{
+    
+    margin-left: 240px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .middle-div{
+    
+    margin-left: 200px;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .middle-div{
+    
+    margin-left:190px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .middle-div{
+    
+    margin-left: 180px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .middle-div{
+    
+    margin-left: 140px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .middle-div{
+    
+    margin-left: 100px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .middle-div{
+    
+    margin-left: 60px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .middle-div{
+    
+    margin-left: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .middle-div{
+    
+    margin-left: 0px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .middle-div{
+    
+    margin-left: 0px;
+  }
 }
